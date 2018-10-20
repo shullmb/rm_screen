@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import './style/App.scss';
 import CartContainer from './components/CartContainer';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
@@ -10,12 +10,14 @@ class App extends Component {
       inventory: null,
       promos: null,
       shipping: null,
-      orderSubTotal: 0
+      itemsInCart: [],
+      orderSubTotal: 10000
     }
   }
 
   componentDidMount() {
-    const getRequests = ['inventory/getInventory', 'promo', 'shipping'].map( route => {
+    const apiEndPoints = ['inventory/getInventory', 'promo', 'shipping']
+    const getRequests = apiEndPoints.map( route => {
       return axios.get(`http://jst.edchavez.com/api/${route}`)
     })
 
@@ -33,11 +35,18 @@ class App extends Component {
 
   render() {
     const items = this.state.inventory ? this.state.inventory : ''
+    const orderSubTotal = this.state.orderSubTotal || 0
+    const promos = this.state.promos || ''
+    const shipping = this.state.shipping || ''
     return (
       <div>
         <h1>Test App</h1>
         <h4>Get it, Get it, Get it, Post it</h4>
-        <CartContainer items={items}/>
+        <CartContainer items={items} 
+          orderSubTotal={orderSubTotal}
+          promo={promos[0]}
+          shipping={shipping[0]}
+        />
 
       </div>
     );
