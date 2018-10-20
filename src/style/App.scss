@@ -1,0 +1,19 @@
+body { 
+  background: black;
+  color: white;
+  box-sizing: border-box;
+}
+
+#cart {
+  background: #ccc;
+  color: black;
+  width: 20vw;
+  overflow-y: scroll;
+  float: right
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+}

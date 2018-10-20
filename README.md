@@ -14,3 +14,8 @@ ___
 ## Additional/helpful notes:
 __No authentication/validations needed – all been disabled. If it’s part of the model, just mock it e.g. “signature”.__
 Do as much or as little as you can/want to showcase your front-end powers so pick the framework where you do your best with JavaScript and CSS. Focus on how youstructure your code, how you make it “readable”/grok-able and ultimately maintainable by your peers. We all want to learn and improve each other in a team!
+
+### TO DO/Remember:
+- [ ] set date prior to promo expiration dates
+- [ ] control flow => promo type
+- [ ] shipping in cents, item in cents => promo percentage

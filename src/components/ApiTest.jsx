@@ -5,25 +5,37 @@ class ApiTest extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      response: null
+      inventory: null,
+      promos: null
     }
   }
 
   componentDidMount(){
-    let url = `http://jst.edchavez.com/api/inventory/getInventory`
-    axios.get(url).then( response => {
-      console.log(response.data)
-      this.setState({
-        response: response.data.items
+    function getInventory() {
+      return axios.get(`http://jst.edchavez.com/api/inventory/getInventory`)
+    }
+
+    function getPromos() {
+      return axios.get(`http://jst.edchavez.com/api/promo`)
+    }
+
+    axios.all([getInventory(),getPromos()]).then(
+      axios.spread( (inventory, promos) => {
+        this.setState({
+          inventory: inventory.data.items,
+          promos: promos.data
+        })
       })
-    })  
+    )
   }
 
   render() {
-    var response = this.state.response ? this.state.response.map( item => <p key={item.itemId}>{item.name}</p>) : <p>Hold for inventory</p>;
+    let inventory = this.state.inventory ? this.state.inventory.map( item => <p key={item.itemId}>{item.name}</p> ) : ''
+    let promos = this.state.promos ? this.state.promos.map( promo => <p key={promo.promoId}>{promo.promoId}</p> ) : ''
     return (
       <div>
-        {response}
+        {inventory}
+        {promos}
       </div>
     )
   }
