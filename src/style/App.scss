@@ -1,4 +1,5 @@
 body { 
+  font-family: 'Helvetica', 'Arial', sans-serif;
   background: black;
   color: white;
   box-sizing: border-box;
@@ -8,8 +9,17 @@ body {
   background: #ccc;
   color: black;
   width: 20vw;
+  padding: 1rem;
   overflow-y: scroll;
   float: right
+}
+
+.cart-module {
+  background: #eee;
+  padding: 1em;
+  border: 1px solid #666;
+  border-radius: 5px;
+  margin: 0.5em 0;;
 }
 
 .cart-item {
@@ -17,3 +27,4 @@ body {
   display: flex;
   align-items: center;
 }
+

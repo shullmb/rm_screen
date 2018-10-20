@@ -7,7 +7,7 @@ export const CartInfo = props => {
   const selectedShipping = formatUSD(props.selectedShipping)
 
   return (
-    <div>
+    <div className='cart-module'>
       <p>Order Subtotal: {orderSubTotal}</p>
       <p>Promo: -{selectedPromo}</p>
       <p>Shipping: {selectedShipping}</p>

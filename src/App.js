@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import './style/App.scss';
 import CartContainer from './components/CartContainer';
 import axios from 'axios';
+import uuid from 'uuid/v4';
 
 class App extends Component {
   constructor(props) {
@@ -13,12 +13,15 @@ class App extends Component {
       itemsInCart: [],
       orderSubTotal: 10000
     }
+    this.addItemToCart = this.addItemToCart.bind(this)
+    this.removeItemFromCart = this.removeItemFromCart.bind(this)
+    this.handleOrderSubmission = this.handleOrderSubmission.bind(this)
   }
 
   componentDidMount() {
-    const apiEndPoints = ['inventory/getInventory', 'promo', 'shipping']
-    const getRequests = apiEndPoints.map( route => {
-      return axios.get(`http://jst.edchavez.com/api/${route}`)
+    const apiEndpoints = ['inventory/getInventory', 'promo', 'shipping']
+    const getRequests = apiEndpoints.map( resource => {
+      return axios.get(`http://jst.edchavez.com/api/${resource}`)
     })
 
     axios.all(getRequests).then(
@@ -30,7 +33,35 @@ class App extends Component {
           shipping: shipping.data
         })
       })
-    )
+    ).catch( err => console.log(err))
+  }
+
+  addItemToCart() {
+    // handle event: add item to cart
+  }
+
+  removeItemFromCart() {
+    // handle event: remove item from cart
+  }
+
+  handleOrderSubmission() {
+    // handle event: post order to api
+    const url = 'http://jst.edchavez.com/api/order'
+    let orderInfo = {
+      merchantId: "RM_MBS_102118",
+      orderItems: this.state.itemsInCart,
+      taxTotal: 2,
+      shippingTotal: 3,
+      discountTotal: 4,
+      promotion: this.state.selectedPromo,
+      merchantOrderReference: "sample string 5",
+      orderId: "sample string 6",
+      orderDate: 1,
+      signature: "sample string 7"
+    }
+    axios.post(url, orderInfo)
+      .then( succ => console.log(succ))
+      .catch( err => console.log(err))
   }
 
   render() {
