@@ -1,3 +1,8 @@
+// Variables
+$offwhite: #dfdfdf;
+$darkgray: #111;
+$maroon: #690000;
+
 body { 
   font-family: 'Helvetica', 'Arial', sans-serif;
   background: black;
@@ -5,26 +10,15 @@ body {
   box-sizing: border-box;
 }
 
-#cart {
-  background: #ccc;
-  color: black;
-  width: 20vw;
-  padding: 1rem;
-  overflow-y: scroll;
-  float: right
+header {
+  padding: 2em;
 }
 
-.cart-module {
-  background: #eee;
-  padding: 1em;
-  border: 1px solid #666;
-  border-radius: 5px;
-  margin: 0.5em 0;;
+nav {
+
 }
 
-.cart-item {
-  height: 2rem;
-  display: flex;
-  align-items: center;
+main {
+  width: 80vw;
+  margin: 0 auto
 }
-

@@ -1,0 +1,24 @@
+// Cart
+
+#cart {
+  background: #ccc;
+  color: black;
+  width: 20vw;
+  padding: 1rem;
+  overflow-y: scroll;
+  float: right
+}
+
+.cart-module {
+  background: #eee;
+  padding: 1em;
+  border: 1px solid #666;
+  border-radius: 5px;
+  margin: 0.5em 0;;
+}
+
+.cart-item {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}

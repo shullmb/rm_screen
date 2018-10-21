@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import CartContainer from './components/CartContainer';
+import { Header } from './components/Header';
+import { Button } from './components/Button';
 import axios from 'axios';
 import uuid from 'uuid/v4';
 
@@ -7,6 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      date: new Date("10/22/2017"), // setting date to 2017 to account for expired promos
       inventory: null,
       promos: null,
       shipping: null,
@@ -38,6 +41,9 @@ class App extends Component {
 
   addItemToCart() {
     // handle event: add item to cart
+    console.log('adding item to cart')
+    
+
   }
 
   removeItemFromCart() {
@@ -46,19 +52,25 @@ class App extends Component {
 
   handleOrderSubmission() {
     // handle event: post order to api
-    const url = 'http://jst.edchavez.com/api/order'
-    let orderInfo = {
+    const url = 'http://jst.edchavez.com/api/order';
+
+    /* -- MOCKUP ORDER INFO -- */
+    const orderId = uuid().split('').splice(0,8).join()
+    const merchantOrderReference = uuid().split('').splice(8, 8).join()
+    var orderInfo = {
       merchantId: "RM_MBS_102118",
       orderItems: this.state.itemsInCart,
-      taxTotal: 2,
-      shippingTotal: 3,
-      discountTotal: 4,
-      promotion: this.state.selectedPromo,
-      merchantOrderReference: "sample string 5",
-      orderId: "sample string 6",
-      orderDate: 1,
-      signature: "sample string 7"
+      taxTotal: 10, // representing Seattle's 10 percent sales tax as an int
+      shippingTotal: this.state.shipping[0].shipAmt,
+      discountTotal: this.state.promo[0].promoAmt,
+      promotion: this.state.promo[0].promoName,
+      merchantOrderReference,
+      orderId,
+      orderDate: this.state.date,
+      signature: "Michael B Shull"
     }
+
+    // POST /api/order
     axios.post(url, orderInfo)
       .then( succ => console.log(succ))
       .catch( err => console.log(err))
@@ -71,14 +83,16 @@ class App extends Component {
     const shipping = this.state.shipping || ''
     return (
       <div>
-        <h1>Test App</h1>
-        <h4>Get it, Get it, Get it, Post it</h4>
-        <CartContainer items={items} 
-          orderSubTotal={orderSubTotal}
-          promo={promos[0]}
-          shipping={shipping[0]}
-        />
-
+        <Header headline="RAM Mounts Technical" subhead={'GET it, GET it, GET it, POST it.'} />
+        {/* <Nav /> */}
+        <main>
+          <CartContainer items={items} 
+            orderSubTotal={orderSubTotal}
+            promo={promos[0]}
+            shipping={shipping[0]}
+          />
+          <Button text="add item to cart" onClick={this.addItemToCart}/>
+        </main>
       </div>
     );
   }
