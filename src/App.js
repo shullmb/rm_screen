@@ -14,7 +14,8 @@ class App extends Component {
       user: {
         firstName: 'Mock',
         lastName: 'Mockerson'
-      }, 
+      },
+      message: '', 
       inventory: null,
       promos: null,
       shipping: null,
@@ -90,9 +91,10 @@ class App extends Component {
     const url = 'http://jst.edchavez.com/api/order';
 
     /* -- MOCKUP ORDER INFO -- */
-    const orderId = uuid().split('').splice(0,8).join()
-    const merchantOrderReference = uuid().split('').splice(8, 8).join()
-    const orderDate = Number(new Date().toUTCString)
+    const orderId = uuid().split('-').join('')
+    const merchantOrderReference = uuid().split('-').join('')
+    const orderDate = 1540234710
+    console.log({orderId, merchantOrderReference, orderDate})
     const signature = `${this.state.user.firstName} ${this.state.user.lastName}`
 
     const orderInfo = {
@@ -139,15 +141,26 @@ class App extends Component {
     // POST /api/order
     axios({
       method: 'post',
-      url,
+      url: url,
       data: orderInfo,
-      headers: {'Content-Type':'application/json'}
-    }).then( succ => console.log('Order Successful', succ))
+      headers: { "Content-Type": "application/json; charset=utf-8"}
+    }).then( succ => {
+      console.log('Order Successful', succ)
+      let transactionId = succ.data.transactionId
+      this.setState({
+        message: `Order Successful! #${transactionId} is on its way`,
+        itemsInCart: [],
+        selectedPromo: null,
+        selectedShipping: null,
+        orderSubTotal: 0
+      })
+    })
       .catch( err => console.log(err))
   }
 
   render() {
     const user = this.state.user.firstName
+    const message = this.state.message ? this.state.message : ''
     const items = this.state.inventory ? this.state.inventory : ''
     const orderSubTotal = this.state.orderSubTotal || 0
     const promos = this.state.promos || ''
@@ -160,7 +173,7 @@ class App extends Component {
         <Header headline="RAM Mounts Technical" 
           subhead={'GET it, GET it, GET it, POST it.'} 
         />
-        <Nav />
+        <Nav message={message} />
         <main>
           <InventoryContainer id='inventory-container'
             items={items} 
