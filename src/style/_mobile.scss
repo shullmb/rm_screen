@@ -1,0 +1,31 @@
+// Break it down....
+
+@media (max-width: 600px) {  
+  main {
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 'inventory'
+                         'cart';
+  }
+
+  nav {
+    display: none;
+  }
+  
+  #cart-container {
+    width: 100%;
+  }
+
+  #inventory {
+    display: block;
+  }
+
+  .inventory {
+    width: 100%;
+  }
+
+  .inv-content {
+    flex-direction: row;
+  }
+}

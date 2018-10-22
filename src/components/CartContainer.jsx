@@ -7,6 +7,7 @@ import { CartSelector } from './CartSelector';
 import { Button } from './Button';
 
 const CartContainer = props => {
+  let user = props.user
   let itemsInCart = props.items ? props.items.map( (item,i) => <CartItem key={`${i}-${item.itemId}`} item={item} removeItem={props.removeItem} />) : ''
   let promoAmt = props.promo ? props.promo.promoAmt : 0
   let shipCost = props.shipping ? props.shipping.shipCost : 0
@@ -14,7 +15,7 @@ const CartContainer = props => {
   return (
     <aside id="cart">
       <Cart >
-        <CartHeader numberOfItems={props.items.length} />
+        <CartHeader numberOfItems={props.items.length} user={user} />
         <CartSelector promos={props.promos} shipping={props.shippings}/>
         <CartInfo 
           orderSubTotal={props.orderSubTotal} 

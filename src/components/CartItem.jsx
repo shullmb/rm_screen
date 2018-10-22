@@ -11,9 +11,9 @@ export const CartItem = ({item, removeItem}) => {
   }
 
   return (
-    <div className='module'>
-      <p>{item.name} | ${formatUSD(item.price)} </p>
-      <Button text={'X'} onClick={handleClick} />
+    <div className='module cart-item'>
+      <p>1 - {item.name} @ ${formatUSD(item.price)} </p>
+      <Button text={'X'} size='sm' onClick={handleClick} />
     </div>
   )
   

@@ -4,7 +4,8 @@ $almostwhite: #eee;
 $darkgray: #111;
 $mediumgray: #444;
 $gray: #666;
-$maroon: #690000;
+$maroon: #700000;
+$promogreen: #005500;
 
 body { 
   font-family: 'Helvetica', 'Arial', sans-serif;
@@ -51,6 +52,10 @@ main {
 
 .text-bold {
   font-weight: 600;
+}
+
+.green {
+  color: $promogreen
 }
 
 // mobile

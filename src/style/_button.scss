@@ -20,5 +20,9 @@
   &:active {
     box-shadow: inset 0 0 10px $mediumgray;
   }
+}
 
+.btn-sm {
+  padding: 1em;
+  margin: auto;
 }

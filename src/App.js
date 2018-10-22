@@ -11,6 +11,10 @@ class App extends Component {
     super(props)
     this.state = {
       date: new Date("10/22/2017"), // setting date to 2017 to account for expired promos
+      user: {
+        firstName: 'Mock',
+        lastName: 'Mockerson'
+      }, 
       inventory: null,
       promos: null,
       shipping: null,
@@ -71,6 +75,7 @@ class App extends Component {
     /* -- MOCKUP ORDER INFO -- */
     const orderId = uuid().split('').splice(0,8).join()
     const merchantOrderReference = uuid().split('').splice(8, 8).join()
+    const signature = `${this.state.user.firstName} ${this.state.user.lastName}`
     var orderInfo = {
       merchantId: "RM_MBS_102118",
       orderItems: this.state.itemsInCart,
@@ -81,7 +86,7 @@ class App extends Component {
       merchantOrderReference,
       orderId,
       orderDate: this.state.date,
-      signature: "Michael B Shull"
+      signature
     }
 
     // POST /api/order
@@ -91,6 +96,7 @@ class App extends Component {
   }
 
   render() {
+    const user = this.state.user.firstName
     const items = this.state.inventory ? this.state.inventory : ''
     const orderSubTotal = this.state.orderSubTotal || 0
     const promos = this.state.promos || ''
@@ -107,9 +113,11 @@ class App extends Component {
             items={items} 
             addItem={this.addItemToCart} 
             />
-          <CartContainer id='cart-container' 
+          <CartContainer id='cart-container'
+            user={user}
             items={itemsInCart} 
             removeItem={this.removeItemFromCart}
+            submitOrder={this.handleOrderSubmission}
             orderSubTotal={orderSubTotal}
             promo={promos[0]}
             promos={promos}

@@ -11,10 +11,10 @@ export const CartInfo = props => {
   return (
     <div className='module'>
       <p>Order Subtotal: ${formatUSD(orderSubTotal)}</p>
-      <p>Promo: -${formatUSD(selectedPromo, 'I')}</p>
+      <p>Promo: <span className="green">${formatUSD(selectedPromo, 'I')}</span></p>
       <p>Shipping: ${formatUSD(selectedShipping)}</p>
       <p>Tax: 10% </p>
-      <h5>Order Total: ${formatUSD(orderTotal)}</h5>
+      <h4>Order Total: ${ orderTotal > 0 ? formatUSD(orderTotal) : ' --'}</h4>
     </div>
   )
   

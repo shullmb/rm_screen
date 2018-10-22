@@ -8,7 +8,7 @@ const InventoryContainer = ({items, addItem}) => {
 
   return (
     <div>
-      <h1>Items in Stock</h1>
+      <h1>Items in stock</h1>
       <div className="inventory">
         {itemsInStock}
       </div>

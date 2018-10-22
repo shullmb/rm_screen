@@ -1,7 +1,8 @@
 import React from 'react';
 
-export const CartHeader = ({numberOfItems}) => {
+export const CartHeader = ({user, numberOfItems}) => {
   var headerText = 'Your Cart is empty'
+
   if (numberOfItems > 1) {
     headerText = `${numberOfItems} Items in your Cart`
   } else if (numberOfItems === 1) {
@@ -9,6 +10,6 @@ export const CartHeader = ({numberOfItems}) => {
   } 
   
   return (
-    <h4>{headerText}</h4>
+    <h4>Hello, {user}! {headerText}</h4>
   )
 }

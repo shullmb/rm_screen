@@ -13,11 +13,12 @@
 }
 
 .cart-item {
-  height: 2rem;
+  height: 3em;
   display: flex;
-  align-items: center;
+  justify-content: space-around;
 }
 
 select {
   width: 100%;
+  margin: .5em auto;
 }
