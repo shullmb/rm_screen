@@ -19,11 +19,15 @@ class App extends Component {
       promos: null,
       shipping: null,
       itemsInCart: [],
+      selectedPromo: null,
+      selectedShipping: null,
       orderSubTotal: 0
     }
     this.addItemToCart = this.addItemToCart.bind(this)
     this.removeItemFromCart = this.removeItemFromCart.bind(this)
     this.handleOrderSubmission = this.handleOrderSubmission.bind(this)
+    this.updatePromoSelection = this.updatePromoSelection.bind(this)
+    this.updateShippingSelection = this.updateShippingSelection.bind(this)
   }
 
   componentDidMount() {
@@ -38,7 +42,9 @@ class App extends Component {
         this.setState({
           inventory: inventory.data.items,
           promos: promos.data,
-          shipping: shipping.data
+          selectedPromo: null,
+          shipping: shipping.data,
+          selectedShipping: shipping.data[0]
         })
       })
     ).catch( err => console.log(err))
@@ -57,7 +63,6 @@ class App extends Component {
 
   removeItemFromCart(item) {
     // handle event: remove item from cart
-    console.log('REMOVING', item.name)
     const itemsInCart = Array.from(this.state.itemsInCart)
     const itemIndex = itemsInCart.indexOf(item)
     let orderSubTotal = this.state.orderSubTotal - item.price
@@ -68,6 +73,18 @@ class App extends Component {
     })
   }
 
+  updatePromoSelection(promo) {
+    const selectedPromo = this.state.promos[promo]
+    // handle event: promo selected
+    this.setState({selectedPromo})
+  }
+
+  updateShippingSelection(shipOption) {
+    // handle event: shipping option selected
+    const selectedShipping = this.state.shipping[shipOption]
+    this.setState({selectedShipping})
+  }
+
   handleOrderSubmission() {
     // handle event: post order to api
     const url = 'http://jst.edchavez.com/api/order';
@@ -75,23 +92,57 @@ class App extends Component {
     /* -- MOCKUP ORDER INFO -- */
     const orderId = uuid().split('').splice(0,8).join()
     const merchantOrderReference = uuid().split('').splice(8, 8).join()
+    const orderDate = Number(new Date().toUTCString)
     const signature = `${this.state.user.firstName} ${this.state.user.lastName}`
-    var orderInfo = {
-      merchantId: "RM_MBS_102118",
-      orderItems: this.state.itemsInCart,
-      taxTotal: 10, // representing Seattle's 10 percent sales tax as an int
-      shippingTotal: this.state.shipping[0].shipAmt,
-      discountTotal: this.state.promo[0].promoAmt,
-      promotion: this.state.promo[0].promoName,
-      merchantOrderReference,
-      orderId,
-      orderDate: this.state.date,
-      signature
-    }
 
+    const orderInfo = {
+      merchantId: "RM_MM_102218",
+      orderItems: [
+        {
+          qtyOrdered: 1,
+          name: "John Snow Life 2",
+          description: "This is Jon Snow's life",
+          price: 4,
+          itemId: "Sku-02",
+          inStock: true,
+          stock: 1
+        },
+        {
+          qtyOrdered: 1,
+          name: "John Snow Life 4",
+          description: "This is Jon Snow's life",
+          price: 4,
+          itemId: "Sku-04",
+          inStock: true,
+          stock: 1
+        }
+      ],
+      taxTotal: 10,
+      shippingTotal: 2,
+      discountTotal: 2,
+      promotion: {
+        orderSubTotal: 8,
+        promoAmt: 2,
+        promoId: 'Promo-1',
+        promotionName: 'Fixed Value Promo',
+        start: "10/21/2018",
+        end: "10/21/2018",
+        minimumOrderValue: 1.1,
+        promotionType: 'ValueOff'
+      },
+      merchantOrderReference: merchantOrderReference,
+      orderId: orderId,
+      orderDate: orderDate,
+      signature: signature
+    }
+  
     // POST /api/order
-    axios.post(url, orderInfo)
-      .then( succ => console.log(succ))
+    axios({
+      method: 'post',
+      url,
+      data: orderInfo,
+      headers: {'Content-Type':'application/json'}
+    }).then( succ => console.log('Order Successful', succ))
       .catch( err => console.log(err))
   }
 
@@ -100,7 +151,9 @@ class App extends Component {
     const items = this.state.inventory ? this.state.inventory : ''
     const orderSubTotal = this.state.orderSubTotal || 0
     const promos = this.state.promos || ''
+    const promo = this.state.selectedPromo ? this.state.selectedPromo : ''
     const shipping = this.state.shipping || ''
+    const selectedShipping = this.state.selectedShipping
     const itemsInCart = this.state.itemsInCart
     return (
       <div>
@@ -118,10 +171,12 @@ class App extends Component {
             items={itemsInCart} 
             removeItem={this.removeItemFromCart}
             submitOrder={this.handleOrderSubmission}
+            updatePromoSelection={this.updatePromoSelection}
+            updateShippingSelection={this.updateShippingSelection}
             orderSubTotal={orderSubTotal}
-            promo={promos[0]}
             promos={promos}
-            shipping={shipping[0]}
+            promo={promo}
+            shipping={selectedShipping}
             shippings={shipping}
           />
         </main>

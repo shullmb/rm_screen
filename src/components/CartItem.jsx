@@ -5,8 +5,7 @@ import { Button } from './Button';
 export const CartItem = ({item, removeItem}) => {
   
   // handle removeItem click
-  function handleClick(e) {
-    e.preventDefault()
+  function handleClick() {
     removeItem(item)
   }
 
