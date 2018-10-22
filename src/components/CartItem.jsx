@@ -5,7 +5,7 @@ export const CartItem = props => {
   let item = props.item
 
   return (
-    <div className='cart-module'>
+    <div className='module'>
       <p>{item.name} | ${formatUSD(item.price)} </p>
     </div>
   )

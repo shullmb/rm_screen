@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import CartContainer from './components/CartContainer';
 import { Header } from './components/Header';
-import { Button } from './components/Button';
+import { Nav } from './components/Nav';
+import InventoryContainer from './components/InventoryContainer';
+import CartContainer from './components/CartContainer';
 import axios from 'axios';
 import uuid from 'uuid/v4';
 
@@ -14,7 +15,7 @@ class App extends Component {
       promos: null,
       shipping: null,
       itemsInCart: [],
-      orderSubTotal: 10000
+      orderSubTotal: 0
     }
     this.addItemToCart = this.addItemToCart.bind(this)
     this.removeItemFromCart = this.removeItemFromCart.bind(this)
@@ -29,7 +30,6 @@ class App extends Component {
 
     axios.all(getRequests).then(
       axios.spread((inventory, promos, shipping) => {
-        console.log({inventory,promos,shipping})
         this.setState({
           inventory: inventory.data.items,
           promos: promos.data,
@@ -39,15 +39,24 @@ class App extends Component {
     ).catch( err => console.log(err))
   }
 
-  addItemToCart() {
+  addItemToCart(e) {
     // handle event: add item to cart
     console.log('adding item to cart')
-    
-
+    const item = e
+    const itemsInCart = Array.from(this.state.itemsInCart)
+    const orderSubTotal = this.state.orderSubTotal // subtract item price
+    itemsInCart.push(item)
+    this.setState({
+      itemsInCart,
+      orderSubTotal
+    })
   }
 
   removeItemFromCart() {
     // handle event: remove item from cart
+    const itemsInCart = Array.from(this.state.itemsInCart)
+    itemsInCart.splice()
+    this.setState({itemsInCart})
   }
 
   handleOrderSubmission() {
@@ -81,18 +90,25 @@ class App extends Component {
     const orderSubTotal = this.state.orderSubTotal || 0
     const promos = this.state.promos || ''
     const shipping = this.state.shipping || ''
+    const itemsInCart = this.state.itemsInCart
     return (
       <div>
-        <Header headline="RAM Mounts Technical" subhead={'GET it, GET it, GET it, POST it.'} />
-        {/* <Nav /> */}
+        <Header headline="RAM Mounts Technical" 
+          subhead={'GET it, GET it, GET it, POST it.'} 
+        />
+        <Nav />
         <main>
-          <CartContainer items={items} 
+          <InventoryContainer items={items} addItem={this.addItemToCart} />
+          <CartContainer items={itemsInCart} 
             orderSubTotal={orderSubTotal}
             promo={promos[0]}
             shipping={shipping[0]}
           />
-          <Button text="add item to cart" onClick={this.addItemToCart}/>
+          {/* <Button text="add item to cart" onClick={this.addItemToCart}/> */}
         </main>
+        <aside>
+
+        </aside>
       </div>
     );
   }

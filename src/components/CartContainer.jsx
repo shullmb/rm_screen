@@ -1,6 +1,7 @@
 import React from 'react';
 import { CartItem } from './CartItem';
 import { CartInfo } from './CartInfo';
+import { CartHeader } from './CartHeader';
 
 const CartContainer = props => {
   console.log(props)
@@ -9,7 +10,7 @@ const CartContainer = props => {
   let shipCost = props.shipping ? props.shipping.shipCost : 500
   return (
     <aside id="cart">
-      <h4>Your Cart</h4>
+      <CartHeader numberOfItems={props.items.length} />
       {itemsInCart}
       <CartInfo 
         orderSubTotal={props.orderSubTotal} 

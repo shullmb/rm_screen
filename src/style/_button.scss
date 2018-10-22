@@ -1,7 +1,7 @@
 // Button
 .btn {
   background: $maroon;
-  color: $offwhite;
+  color: $almostwhite;
   padding: 1.5em;
   margin: 1em 2em;
   border-radius: 5px;
@@ -13,10 +13,11 @@
   align-items: center;
   &:hover {
     background: lighten($maroon, 10%);
-    box-shadow: 0 0 10px $offwhite;
+    box-shadow: 0 0 10px $mediumgray;
   };
   &:active {
-    box-shadow: inset 0 0 10px $darkgray;
+    box-shadow: inset 0 0 10px $mediumgray;
+    border: 1px solid $darkgray;
   }
 
 }

@@ -1,24 +1,40 @@
 // Variables
 $offwhite: #dfdfdf;
+$almostwhite: #eee;
 $darkgray: #111;
+$mediumgray: #444;
 $maroon: #690000;
 
 body { 
   font-family: 'Helvetica', 'Arial', sans-serif;
   background: black;
-  color: white;
+  color: $offwhite;
   box-sizing: border-box;
 }
 
 header {
-  padding: 2em;
+  padding: 1em 2em;
 }
 
 nav {
-
+  background-color: $maroon;
+  height: 4em;
+  width: 100vw;
 }
 
 main {
+  background: $offwhite;
+  color: $darkgray;
   width: 80vw;
-  margin: 0 auto
+  margin: 0 auto;
+  padding: 1em;
+  display: grid;
+}
+
+.module {
+  background: $almostwhite;
+  padding: 1em;
+  border: 1px solid #666;
+  border-radius: 5px;
+  margin: 0.5em 0;
 }
