@@ -4,10 +4,6 @@ import { formatUSD } from '../helpers/formatter';
 import { Thumbnail } from './Thumbnail';
 
 export const InventoryItem = ({item, addItem}) => {
-  // assign random thumbnail query string for img from unsplash
-  const qsArr = ['snow','castle','wolf','iceland','aurora'];
-  let qs = qsArr[Math.floor(Math.random() * qsArr.length)];
-
   // handle addItem click 
   function handleClick(e) {
     e.stopPropagation()
