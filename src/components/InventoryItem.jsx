@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from './Button';
 import { formatUSD } from '../helpers/formatter';
+import { Thumbnail } from './Thumbnail';
 
 export const InventoryItem = ({item, addItem}) => {
   // assign random thumbnail query string for img from unsplash
@@ -17,7 +18,7 @@ export const InventoryItem = ({item, addItem}) => {
     <div className='module inventory-item'>
       <div className="inv-content">
         <div>
-          <img className='inv-img' src={`https://source.unsplash.com/100x100/?${qs}`} alt="{qs}"/>
+          <Thumbnail />
         </div>
         <div>
           <h2>{item.name}</h2>
