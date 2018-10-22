@@ -23,10 +23,10 @@ export const InventoryItem = ({item, addItem}) => {
           <h2>{item.name}</h2>
           <p className='small'>{item.itemId}</p>
           <p>{item.description}</p>
-          <p><span className="text-bold">In Stock: </span>{item.stock}</p>
+          <p><span className="text-bold">${formatUSD(item.price)}</span></p>
         </div>
       </div>
-      <Button text={`add to cart - $ ${formatUSD(item.price)}`} onClick={handleClick}/>
+      <Button text={'add to cart'} onClick={handleClick}/>
     </div>
   )
 }

@@ -3,6 +3,7 @@ $offwhite: #dfdfdf;
 $almostwhite: #eee;
 $darkgray: #111;
 $mediumgray: #444;
+$gray: #666;
 $maroon: #690000;
 
 body { 
@@ -19,7 +20,7 @@ header {
 nav {
   background-color: $maroon;
   height: 4em;
-  width: 100vw;
+  width: 100%;
 }
 
 main {
@@ -38,7 +39,7 @@ main {
 .module {
   background: $almostwhite;
   padding: 1em;
-  border: 1px solid #666;
+  border: 1px solid $gray;
   border-radius: 5px;
   margin: 0.5em 0;
 }
@@ -50,4 +51,9 @@ main {
 
 .text-bold {
   font-weight: 600;
+}
+
+// mobile
+@media (max-width: 600px) {
+
 }

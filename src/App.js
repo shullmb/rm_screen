@@ -103,20 +103,20 @@ class App extends Component {
         />
         <Nav />
         <main>
-          <InventoryContainer id='inventory'
+          <InventoryContainer id='inventory-container'
             items={items} 
             addItem={this.addItemToCart} 
             />
-          <CartContainer items={itemsInCart} 
+          <CartContainer id='cart-container' 
+            items={itemsInCart} 
             removeItem={this.removeItemFromCart}
             orderSubTotal={orderSubTotal}
             promo={promos[0]}
+            promos={promos}
             shipping={shipping[0]}
+            shippings={shipping}
           />
         </main>
-        <aside>
-
-        </aside>
       </div>
     );
   }

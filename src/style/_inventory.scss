@@ -1,5 +1,9 @@
-.inventory {
+// Inventory
+#inventory-container {
   grid-area: inventory;
+}
+
+.inventory {
   display: grid;
   grid-gap: 1em;
   grid-template-columns: 1fr 1fr 1fr;
@@ -13,4 +17,8 @@
 
 .inv-img {
   border-radius: 40% 20%;  
+}
+
+@media (max-width: 600px) {
+
 }
