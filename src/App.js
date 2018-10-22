@@ -193,6 +193,9 @@ class App extends Component {
             shippings={shipping}
           />
         </main>
+        <footer>
+          <p>Michael Shull &copy; 2018</p>
+        </footer>
       </div>
     );
   }
