@@ -7,9 +7,9 @@ export const InventoryItem = ({item, addItem}) => {
   const qsArr = ['snow','castle','wolf','iceland','aurora'];
   let qs = qsArr[Math.floor(Math.random() * qsArr.length)];
 
-  // handle click 
+  // handle addItem click 
   function handleClick(e) {
-    e.preventDefault()
+    e.stopPropagation()
     addItem(item)
   }
 
@@ -17,11 +17,13 @@ export const InventoryItem = ({item, addItem}) => {
     <div className='module inventory-item'>
       <div className="inv-content">
         <div>
-          <img className='inv-img' src={`https://source.unsplash.com/200x200/?${qs}`} alt="{qs}"/>
+          <img className='inv-img' src={`https://source.unsplash.com/100x100/?${qs}`} alt="{qs}"/>
         </div>
         <div>
           <h2>{item.name}</h2>
+          <p className='small'>{item.itemId}</p>
           <p>{item.description}</p>
+          <p><span className="text-bold">In Stock: </span>{item.stock}</p>
         </div>
       </div>
       <Button text={`add to cart - $ ${formatUSD(item.price)}`} onClick={handleClick}/>

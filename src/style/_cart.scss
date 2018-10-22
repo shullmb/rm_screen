@@ -1,9 +1,9 @@
 // Cart
 
 #cart {
+  grid-area: cart;
   background: #ccc;
   color: black;
-  width: 20vw;
   padding: 1rem;
   overflow-y: scroll;
 }

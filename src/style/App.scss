@@ -29,6 +29,10 @@ main {
   margin: 0 auto;
   padding: 1em;
   display: grid;
+  grid-column-gap: 1em;
+  grid-template-columns: 1fr 20vw;
+  grid-template-rows: 1fr;
+  grid-template-areas: 'inventory cart';
 }
 
 .module {
@@ -37,4 +41,13 @@ main {
   border: 1px solid #666;
   border-radius: 5px;
   margin: 0.5em 0;
+}
+
+.small {
+  font-size: .75rem;
+  font-weight: 100;
+}
+
+.text-bold {
+  font-weight: 600;
 }

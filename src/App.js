@@ -28,6 +28,7 @@ class App extends Component {
       return axios.get(`http://jst.edchavez.com/api/${resource}`)
     })
 
+    // fire off GET requests concurrently => stash data in state
     axios.all(getRequests).then(
       axios.spread((inventory, promos, shipping) => {
         this.setState({
@@ -39,24 +40,28 @@ class App extends Component {
     ).catch( err => console.log(err))
   }
 
-  addItemToCart(e) {
+  addItemToCart(item) {
     // handle event: add item to cart
-    console.log('adding item to cart')
-    const item = e
     const itemsInCart = Array.from(this.state.itemsInCart)
-    const orderSubTotal = this.state.orderSubTotal // subtract item price
     itemsInCart.push(item)
+    const orderSubTotal = itemsInCart.reduce((sum, item) => sum + item.price, 0)
     this.setState({
       itemsInCart,
       orderSubTotal
     })
   }
 
-  removeItemFromCart() {
+  removeItemFromCart(item) {
     // handle event: remove item from cart
+    console.log('REMOVING', item.name)
     const itemsInCart = Array.from(this.state.itemsInCart)
-    itemsInCart.splice()
-    this.setState({itemsInCart})
+    const itemIndex = itemsInCart.indexOf(item)
+    let orderSubTotal = this.state.orderSubTotal - item.price
+    itemsInCart.splice(itemIndex,1)
+    this.setState({
+      itemsInCart,
+      orderSubTotal
+    })
   }
 
   handleOrderSubmission() {
@@ -98,13 +103,16 @@ class App extends Component {
         />
         <Nav />
         <main>
-          <InventoryContainer items={items} addItem={this.addItemToCart} />
+          <InventoryContainer id='inventory'
+            items={items} 
+            addItem={this.addItemToCart} 
+            />
           <CartContainer items={itemsInCart} 
+            removeItem={this.removeItemFromCart}
             orderSubTotal={orderSubTotal}
             promo={promos[0]}
             shipping={shipping[0]}
           />
-          {/* <Button text="add item to cart" onClick={this.addItemToCart}/> */}
         </main>
         <aside>
 
