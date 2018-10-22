@@ -1,15 +1,15 @@
 // Break it down....
 
-@media (max-width: 600px) {  
+@media (max-width: 800px) {  
   main {
-    width: 100%;
+    width: 100vw;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: 'inventory'
                          'cart';
   }
 
-  nav {
+  nav, footer {
     display: none;
   }
   
@@ -17,15 +17,13 @@
     width: 100%;
   }
 
-  #inventory {
-    display: block;
-  }
-
   .inventory {
     width: 100%;
+    display: block
   }
 
   .inv-content {
-    flex-direction: row;
+    flex-direction: column;
+    align-content: center;
   }
 }
